@@ -1,4 +1,12 @@
-document.addEventListener('load', updateNameSpace());
+const timeCounter = document.getElementById('timeCounter');
+let time = 1;
+
+document.addEventListener('load', init());
+
+function init() {
+  updateNameSpace();
+  startTimer();
+}
 
 function updateNameSpace() {
   let myName = JSON.parse(localStorage.getItem('name'));
@@ -24,3 +32,19 @@ document.getElementById('removeName').addEventListener('click', (e) => {
   localStorage.removeItem('name');
   updateNameSpace();
 });
+
+function startTimer() {
+  setInterval(() => {
+    time++;
+    updateTimer();
+  }, 1000);
+}
+
+function updateTimer() {
+  timeCounter.innerText = time;
+  saveTimeInSessionStorage();
+}
+
+function saveTimeInSessionStorage() {
+  sessionStorage.setItem('time', JSON.stringify(time));
+}
